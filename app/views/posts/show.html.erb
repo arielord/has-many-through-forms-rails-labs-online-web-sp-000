@@ -1,14 +1,20 @@
-<%= @post.title %>
-<%= @post.content %>
-
-<% @post.categories.each do |category|%>
-  <%= category.name %>
+<h1><%= @post.title %></h1>
+<p>
+  <%= @post.content %>
+</p>
+<p>
+Categories: <%= @post.categories.map(&:name).join(' ') %>
+</p>
+<ul>
+<% @post.comments.each do |comment| %>
+  <li>
+    <%= comment.user.username %> says: <%= comment.content %>
+  </li>
 <% end %>
+</ul>
 
-<% @post.comments.each do |comment|%>
-  <%= comment.content %>
-<% end %>
-
+Commentors:
+<ul>
 <% @post.users.distinct.each do |user| %>
   <li>
     <%= link_to user.username, user_path(user) %>
